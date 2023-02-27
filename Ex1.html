@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- <link rel="stylesheet" href="Ex1.css">  -->
+        <style>
+            .emoji{
+                
+                margin-left: 40%;
+                margin-top: 100px;
+            }
+
+            .Question{
+                margin-left: 35%;
+                margin-top: 10px;
+            }
+
+            .Button-tell{
+                margin-left: 38.5%;
+                margin-top: 10px;
+                margin-bottom: 30px;
+                
+            }
+
+            .answer{
+                margin-top: 10px;
+                border: 1px black;
+                border-style: dotted;
+                height: 700px;
+                width: 500px;
+                margin-left: 25%;
+                text-align: center;
+            }
+            .text{
+                margin-left: 10px;
+                margin-top: 10px
+            }
+            #activity{
+                
+            }
+        </style>
+    </head>
+    <body style="background-color: blanchedalmond;">
+        <div class = "emoji">
+            <img src="emoji.jpg" alt="photo_emoji">
+        </div>
+        <div class = "Question">
+            <h1> Are you bored ?</h1>
+        </div>
+        <div class = "Button-tell">
+            <button style ="background-color:brown; color: azure;border-radius: 5px; border: white; height: 25px;" onclick="fetchNewActivity()">Tell me what to do</button>
+        </div>
+        <div class = "answer">
+        <!-- <div class = "Recommendation"> -->
+            <div class ="text">
+            <div id="loading-text" hidden>loading...</div>
+            <div id = "activity">  activity  </div>
+            <br>
+            <div id = "type">  type  </div>
+            <div id = "participants">  participants  </div>
+            <div id = "price">  price  </div>
+            <div id = "link">  link  </div>
+            <div id = "key">  key  </div>
+            <div id = "accessibility">  accessibility  </div>
+        </div>
+        </div>
+
+
+        <script>
+
+            const loadingTextEle = document.getElementById("loading-text");
+
+            const activityEle = document.getElementById("activity");
+            const typeEle = document.getElementById("type");
+            const participantsEle = document.getElementById("participants");
+            const priceEle = document.getElementById("price");
+            const linkEle = document.getElementById("link");
+            const keyEle = document.getElementById("key");
+            const accessibilityEle = document.getElementById("accessibility");
+
+            function fetchNewActivity()
+            {
+                loadingTextEle.hidden = false;
+
+                activityEle.innerHTML="";
+                typeEle.innerHTML="";
+                participantsEle.innerHTML="";
+                priceEle.innerHTML="";
+                linkEle.innerHTML="";
+                keyEle.innerHTML="";
+                accessibilityEle.innerHTML="";
+
+                fetch("https://www.boredapi.com/api/activity").then(async (res)=>{
+                    let data = await res.json();
+
+                    loadingTextEle.hidden = true;
+                    activityEle.innerHTML="" + data.activity;
+                    typeEle.innerHTML="Type:    " + data.type;
+                    participantsEle.innerHTML="Participants:    " + data['participants'];
+                    priceEle.innerHTML="Price:  " + data.price;
+                    linkEle.innerHTML="Link:    " + data.link;
+                    keyEle.innerHTML="Key:  " + data.key;
+                    accessibilityEle.innerHTML="Accessibity:    " + data.accessibility;
+
+
+                });
+            }
+
+
+        </script>
+    </body>
+</html>
